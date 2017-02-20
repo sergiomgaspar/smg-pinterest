@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 page-header-add">
+      <h1 class="page-header">Add picture</h1>
+      <h4>Use the fields below to add a picture to your colletion<h4>
+    </div>
+  </div>
+</div>
+<!--
+<div class="container" id="addBookDiv">
+    <div class="form-group col-xs-2 col-sm-3 col-md-4 col-lg-4"></div>
+    <div class="row">
+    <div class="form-group col-xs-8 col-sm-6 col-md-4 col-lg-4">
+    <h4>URL:</h4> 
+        <input type="text" class="form-control" 
+        id="bookInput" 
+        placeholder="Enter image URL" 
+        ng-model="addbookCtrl.bookName">
+    </div>
+    <input type="text" class="form-control" 
+        id="bookInput" 
+        placeholder="Enter image comment" 
+        ng-model="addbookCtrl.bookName">
+     </div >
+</div>
+    <button type="submit" 
+    class="btn btn-default btn-primary"
+    ng-show="addbookCtrl.bookName.length > 0"
+    ng-click="addbookCtrl.findBook()">Find book</button>
+    
+-->
+
+
+<div class="container">
+  <form>
+    <div class="form-group row">
+      <label for="inputURL" class="col-sm-2 col-form-label">Image URL:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputURL" placeholder="insert image URL" ng-model = "addpicCtrl.imageUrl">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputComment" class="col-sm-2 col-form-label">Image comment:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputComment" placeholder="insert image comment" ng-model = "addpicCtrl.imageComment">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-click="addpicCtrl.addImage()">Add image</button>
+      </div>
+    </div>
+  </form>
+</div>

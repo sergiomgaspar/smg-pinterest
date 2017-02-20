@@ -1,0 +1,85 @@
+<head>
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'>
+</head>
+<div class="container">
+   <div id=title>
+      <h1>About</h1>
+      <h3 id="titleDescr">This web application was created as part of FreeCodeCamp backend certification.</h3>
+      <p>Below you may find a list of used technologies and a link to their corresponding website where you can get further information about them</p>
+   </div>
+   <!-- Front End -->
+   <br>
+   <div id="techType">Front-End</div>
+   <div class="col-md-12 col-lg-12 " id="techTable">
+      <table class="table table-responsive table-hover">
+         <thead id="techTitle">
+            <tr>
+               <th></th>
+               <th>Name</th>
+               <th>Description</th>
+            </tr>
+         </thead>
+         <tbody id="techBody">
+            <tr ng-repeat="tech in $ctrl.frontEndTech">
+               <td id="techLogo">
+                  <a href="{{tech.url}}" target="_blank" alt="{{tech.alt_image}}">
+                     <p><img src="{{tech.image}}" style = "width: 100px; height: 100px;">
+                  </a>
+               </td>
+               <td id="techName">{{tech.techName}}</td>
+               <td id="techDescr">{{tech.description}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <!-- Back End -->
+   <br>
+   <div id="techType">Back-End</div>
+   <div class="col-md-12 col-lg-12" id="techTable">
+      <table class="table table-responsive table-hover">
+         <thead id="techTitle">
+            <tr>
+               <th></th>
+               <th>Name</th>
+               <th>Description</th>
+            </tr>
+         </thead>
+         <tbody id="techBody">
+            <tr ng-repeat="tech in $ctrl.backEndTech">
+               <td id="techLogo">
+                  <a href="{{tech.url}}" target="_blank" alt="{{tech.alt_image}}">
+                     <p><img src="{{tech.image}}" style = "width: 100px; height: 100px;">
+                  </a>
+               </td>
+               <td id="techName">{{tech.techName}}</td>
+               <td id="techDescr">{{tech.description}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <!-- Misc End -->
+   <br>
+   <div id="techType">Other technologies</div>
+   <div class="col-md-12 col-lg-12" id="techTable">
+      <table class="table table-responsive table-hover">
+         <thead id="techTitle">
+            <tr>
+               <th></th>
+               <th>Name</th>
+               <th>Description</th>
+            </tr>
+         </thead>
+         <tbody id="techBody">
+            <tr ng-repeat="tech in $ctrl.miscTech">
+               <td id="techLogo">
+                  <a href="{{tech.url}}" target="_blank" alt="{{tech.alt_image}}">
+                     <p><img src="{{tech.image}}" style = "width: 100px; height: 100px;">
+                  </a>
+               </td>
+               <td id="techName">{{tech.techName}}</td>
+               <td id="techDescr">{{tech.description}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
