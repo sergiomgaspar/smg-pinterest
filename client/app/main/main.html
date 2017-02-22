@@ -1,22 +1,43 @@
 <!--<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>-->
-<script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+<!--<script src="http://masonry.desandro.com/masonry.pkgd.js"></script>-->
 
-
+<!--<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>-->
+<!--<script src='http://masonry.desandro.com/masonry.pkgd.js'></script>-->
+<!--<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>-->
+<!--<script src="http://passy.github.io/angular-masonry/angular-masonry.min.js"></script>-->
+<!--<script src="angulargrid.js"></script>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">-->
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 <header class="hero-unit" id="banner">
 	<div class="container">
-		<img id = "fcc-logo" src="assets/images/fcc.png" alt="FCC"> 
+		<img class = "img-responsive" id = "fcc-logo" src="assets/images/fcc.png" alt="FCC"> 
 
 	</div>
 </header>
- 
-	<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'>
-		<!--<div class="grid">-->
-			<div class="grid-item"> 
-				<img src="https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg">
 
-			</div>
-			<div class="grid-item grid-item--width2"><img src="https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg"></div>
-			<div class="grid-item"><img src="https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg"></div>
-		<!--</div>-->
-	</div>
+
+<!--  example from: http://ignitersworld.com/lab/angulargrid/index.html#demo  -->
+ <!--<div class="dynamic-grid" angular-grid="vm.currentFiles" ag-grid-width="300" ag-gutter-size="40"
+        ag-id="gallery" ag-scroll-container="body" ag-infinite-scroll-distance="700"
+        ag-infinite-scroll="vm.LoadMore()" ag-infinite-scroll-delay="1500">-->
+<container>
+    <div id = "picThumbnail">
+        <ul class="dynamic-grid" 
+            angular-grid="mainCtrl.pictures" 
+            ag-grid-width="250" 
+            ag-gutter-size="10" 
+            ag-angular-grid-id="mainCtrl.pictures" 
+            ag-refresh-on-img-load="true" 
+            ag-infinite-scroll-distance="700"
+            ag-infinite-scroll-immediate-check="false">
+            <li data-ng-repeat="picture in mainCtrl.pictures" class="grid">
+                <img src="{{picture.imageUrl}}" class="grid-img" id = "imageFrame"/>
+                <p id = "imageTitle">{{picture.imageComment}}</p>
+                <p id = "imageUploader">Uploaded by: {{picture.userName}}</p>
+                <p id = "imageLikes"><i class="icon-thumbs-up-alt" ng-click = "mainCtrl.like(picture._id)"
+                    ng-mouseover="picture.imageId === 5"></i> {{picture.countLike}}</p>
+            </li>
+        </ul>
+    </div>
+</container>

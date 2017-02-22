@@ -27,11 +27,12 @@ import util from '../components/util/util.module';
 import AboutComponent from './about/about.component';
 import MypicsComponent from './mypics/mypics.component';
 import AddpicComponent from './addpic/addpic.component';
+import angularGrid from 'angulargrid/angulargrid';
 
 import './app.scss';
 
 angular.module('smgPinterestApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, _Auth,
-  account, admin, navbar, footer, main, constants, util, AboutComponent, MypicsComponent, AddpicComponent
+  account, admin, navbar, footer, main, constants, util, AboutComponent, MypicsComponent, AddpicComponent, angularGrid
 ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {
