@@ -11,4 +11,9 @@ var PicturesSchema = new mongoose.Schema({
   likes: []
 });
 
+/* Search pictures by ID of owner */
+PicturesSchema.methods.findByUser = function(cb) {  
+  return this.model('Pictures').find({ userId: this.userId }, cb);
+};
+
 export default mongoose.model('Pictures', PicturesSchema);

@@ -19,12 +19,15 @@ export class MypicsComponent {
   }
 
   $onInit() {
-    this.$http.get('/api/pictures')
+    if(this.Auth.isLoggedInSync()) {
+      this.userID = this.Auth.getCurrentUserSync()._id;
+      this.userName = this.Auth.getCurrentUserSync().name;
+    }
+    else return;
+    
+    this.$http.get('/api/pictures/'+this.userID)
       .then(response => {
-        if(this.Auth.isLoggedInSync()) {
-          this.userID = this.Auth.getCurrentUserSync()._id;
-          this.userName = this.Auth.getCurrentUserSync().name;
-        }
+        
         this.pictures = response.data;
 
         // Check if user has liked picture already
