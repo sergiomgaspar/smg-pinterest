@@ -7,16 +7,6 @@ export class MainController {
   Auth;
   userID = '';
   userName = '';
-/*
-  bricks=[
-    {src: "http://ignitersworld.com/lab/angulargrid/images/1.jpg", likes: 2, imageId: 7},
-    {src: "http://ignitersworld.com/lab/angulargrid/images/5.jpg", likes: 2, imageId: 6},
-    {src: "http://ignitersworld.com/lab/angulargrid/images/6.jpg", likes: 2, imageId: 5},
-    {src: "http://ignitersworld.com/lab/angulargrid/images/7.jpg", likes: 2, imageId: 4},
-    {src: "http://ignitersworld.com/lab/angulargrid/images/8.jpg", likes: 2, imageId: 3},
-    {src: "http://ignitersworld.com/lab/angulargrid/images/9.jpg", likes: 2, imageId: 2},
-    {src: "https://i.ytimg.com/vi/icqDxNab3Do/maxresdefault.jpg", likes: 2, imageId: 1}];*/
-    
   pictures = [];
 
   /*@ngInject*/
@@ -28,20 +18,51 @@ export class MainController {
   $onInit() {
     this.$http.get('/api/pictures')
       .then(response => {
-        // todo: Add field "userLiked" to identify if user has liked pic already
-        // In html, use ng-show/hide along with CSS (hover property)
+        if(this.Auth.isLoggedInSync()) {
+          this.userID = this.Auth.getCurrentUserSync()._id;
+          this.userName = this.Auth.getCurrentUserSync().name;
+        }
         this.pictures = response.data;
+
+        // Check if user has liked picture already
+        this.pictures.reduce((acc, pic) => {
+
+          if (pic.likes.filter((val) => val.userId === this.userID).length > 0)
+            pic.hasLiked = true;  // Set user has liked the picture
+          else 
+            pic.hasLiked = false;  //user has not liked the picture yet
+          return pic;
+        },{});
+        //console.log(JSON.stringify(this.pictures, undefined, 2));
       });
-    this.userID = this.Auth.getCurrentUserSync()._id;
-    this.userName = this.Auth.getCurrentUserSync().name;
+
+      
   }
 
-  like(imageId){
-    console.log("like: "+imageId);
-    console.log("ID: "+this.userID);
-    console.log("Name: "+this.userName);
+  defaultImage(img) {
+    console.log("AAAAAAAAAAAAAAAAA");
+    img.onerror = "";
+    img.src = 'assets/images/no_photo.jpg';
+  };
 
-    this.$http.put('/api/pictures/'+imageId, )
+  like(imageId){
+    
+    if (!this.Auth.isLoggedInSync()) return;
+    
+    console.log("User liked image: "+imageId);
+    
+    this.pictures.reduce((acc, pic) => {
+      if (pic._id === imageId) {
+        pic.countLike++;
+        pic.hasLiked = true;  // Set user has liked picture
+        pic.likes.push({userName:this.userName, userId: this.userID});
+        return pic;
+      }
+      return acc;
+    },{});
+    var picToUpdate = this.pictures.filter((val) => val._id === imageId);
+
+    this.$http.put('/api/pictures/'+imageId, picToUpdate[0])
 			.then(function(response) {
 					console.log("User going to venue.");
 				},
@@ -49,29 +70,42 @@ export class MainController {
 					console.log("Error while posting event.");
 				});
   }
+
+
+  unLike(imageId){
+
+    if (!this.Auth.isLoggedInSync()) return;
+
+    console.log("User UNLIKED image: "+imageId);
+    
+    this.pictures.reduce((acc, pic) => {
+      var tmp = pic.likes.filter((val) => val.userId !== this.userID);
+      if (pic._id === imageId) {
+        pic.countLike--;
+        pic.hasLiked = false;  // Set user has liked picture
+        pic.likes = tmp; //.push({userName:this.userName, userId: this.userID});
+        return pic;
+      }
+      return acc;
+    },{});
+    var picToUpdate = this.pictures.filter((val) => val._id === imageId);
+
+    this.$http.put('/api/pictures/'+imageId, picToUpdate[0])
+			.then(function(response) {
+					console.log("User going to venue.");
+				},
+				function(response) { // optional
+					console.log("Error while posting event.");
+				});
+  }  
 }
 
-// var msnry = new Masonry( '.grid', {
-//   columnWidth: 200,
-//   itemSelector: '.grid-item'
-// });
-/*
-// init Masonry
-var grid = $('.grid').masonry({
-  // options...
-});
-// layout Masonry after each image loads
-grid.imagesLoaded().progress( function() {
-  grid.masonry('layout');
-});*/
-
-//MainController.$inject = ['$http', 'angularGrid'];
- 
-export default angular.module('smgPinterestApp.main', [uiRouter, 'angularGrid'])
+export default angular.module('smgPinterestApp.main', [uiRouter]) // , 'angularGrid'
   .config(routing)
   .component('main', {
     template: require('./main.html'),
     controller: MainController,
     controllerAs: 'mainCtrl'
   })
-  .name;
+  .name
+;

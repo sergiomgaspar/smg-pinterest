@@ -1,1 +1,39 @@
-<div>This is the mypics view.</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 page-header-add">
+			<h1 class="page-header">My Pictures</h1>
+		</div>
+	</div>
+</div>
+
+<container>
+    <div id = "picThumbnail">
+        <ul class="dynamic-grid" 
+            angular-grid="mypicsCtrl.pictures" 
+            ag-grid-width="250" 
+            ag-gutter-size="10" 
+            ag-angular-grid-id="mypicsCtrl.pictures" 
+            ag-refresh-on-img-load="true" 
+            ag-infinite-scroll-distance="700"
+            ag-infinite-scroll-immediate-check="false">
+            <li data-ng-repeat="picture in mypicsCtrl.pictures" class="grid">
+                <img src="{{picture.imageUrl}}" class="grid-img" id = "imageFrame"
+                     />
+                <p id = "imageTitle">{{picture.imageComment}}</p>
+                <p id = "imageLikes">
+                <b>Nb likes:</b> {{picture.countLike}}
+                <!--<div class = "row">-->
+                    
+
+                    <button type="button" 
+							class="btn btn-danger"
+							ng-click="mypicsCtrl.deletePic(picture._id)"
+                            id = "delPic">Delete</button>
+                </p>
+                <!--</div>-->
+            </li>
+        </ul>
+    </div>
+</container>
+

@@ -90,6 +90,11 @@ export function upsert(req, res) {
   if(req.body._id) {
     delete req.body._id;
   }
+ console.log("RECEIVED REQUEST TO UPDATE PIC");  
+ console.log("PARAM_ID: "+ req.params.id);
+ console.log("req.body.countLike: "+req.body.countLike);
+ console.log("req.body.likes: "+req.body.likes);
+ console.log("BODY:",JSON.stringify(req.body, undefined, 2));
   return Pictures.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
 
     .then(respondWithResult(res))
